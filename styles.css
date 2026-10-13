@@ -93,3 +93,164 @@ h4{margin:0;font-size:19px;line-height:1.4}
 @media(max-width:970px){.page-shell{padding:0 20px}.workspace-grid{grid-template-columns:1fr}.hero{padding:35px}.hero-illustration{flex-basis:215px}.control-block,.result-panel{padding:21px}.topic-list{grid-template-columns:repeat(4,1fr)}.topic-button:last-child{grid-column:auto}.topic-button{flex-direction:column;align-items:center;text-align:center;justify-content:center}}
 @media(max-width:630px){.page-shell{padding:0 14px}.site-header{height:74px}.brand{font-size:16px}.brand-mark{width:37px;height:37px}.header-tag{font-size:10px;padding:6px 9px}.hero{padding:31px 22px;border-radius:19px;min-height:0}.hero-illustration{display:none}.hero-lead{font-size:13px}h1{font-size:34px}.workspace{padding-top:32px}h2{font-size:22px}.step-counter{font-size:10px}.control-block,.result-panel{padding:17px;border-radius:17px}.workspace-grid{gap:13px}.controls{gap:13px}.topic-list{grid-template-columns:1fr 1fr;gap:8px}.topic-button{flex-direction:row;align-items:center;text-align:left;justify-content:flex-start;font-size:12px}.topic-button:last-child{grid-column:1/-1}.topic-button .emoji{font-size:21px}.step-heading{gap:10px}.step-heading p{font-size:11px}.result-card{padding:13px}.mock-badge{font-size:10px}.preview{height:310px;font-size:12px;padding:13px}.preview-actions{flex-direction:column}.button-primary{min-width:0}.next-card{display:grid;gap:14px}.button-dark{width:100%}.usage-note{padding:18px;margin:22px 0 33px}.site-footer{display:grid;gap:4px;padding:19px 0}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{transition:none!important}}
+
+
+/* 首頁三步驟動畫教學：維持原插畫語彙，補上清楚且可控制的操作指引 */
+.hero-illustration.tutorial-visual{
+  display:flex;
+  flex:0 0 266px;
+  width:266px;
+  height:auto;
+  flex-direction:column;
+  align-items:stretch;
+  justify-content:center;
+  gap:8px;
+}
+.tutorial-art{
+  position:relative;
+  display:grid;
+  place-items:center;
+  width:100%;
+  height:205px;
+}
+.tutorial-art .illus-card{
+  width:146px;
+  height:172px;
+  gap:10px;
+  animation:tutorial-float 4s ease-in-out infinite;
+  will-change:transform;
+}
+.tutorial-art .illus-heart{width:103px;height:103px;font-size:70px}
+.tutorial-art .illus-star.one{top:8px;left:10px;animation:tutorial-twinkle 3s ease-in-out infinite}
+.tutorial-art .illus-star.two{bottom:6px;right:2px;animation:tutorial-twinkle 4s ease-in-out infinite 1.1s}
+.tutorial-art .illus-bubble.a{
+  top:36px;
+  right:-6px;
+  animation:tutorial-bubble 5s ease-in-out infinite .4s;
+}
+.tutorial-art .illus-bubble.b{
+  left:0;
+  bottom:27px;
+  animation:tutorial-bubble 5s ease-in-out infinite 1.2s;
+}
+.tutorial-caption{
+  position:relative;
+  width:100%;
+  min-height:137px;
+  padding:12px 15px 13px;
+  border:1px solid #d7e7dc;
+  background:rgba(255,255,255,.94);
+  border-radius:15px;
+  box-shadow:0 10px 25px rgba(51,102,80,.10);
+  z-index:2;
+}
+.tutorial-caption-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:8px;
+  margin-bottom:7px;
+}
+.tutorial-kicker{
+  font-size:11px;
+  font-weight:850;
+  color:#40836f;
+  letter-spacing:.04em;
+}
+.tutorial-toggle{
+  appearance:none;
+  border:1px solid #e0eae3;
+  background:#f5faf6;
+  padding:4px 7px;
+  border-radius:7px;
+  font-size:11px;
+  font-weight:750;
+  color:#416c5d;
+  line-height:1.4;
+  white-space:nowrap;
+}
+.tutorial-toggle:hover{background:#e6f4e9}
+.tutorial-step-title{
+  display:block;
+  color:#184f4a;
+  font-size:14px;
+  font-weight:850;
+  letter-spacing:.01em;
+  line-height:1.5;
+}
+.tutorial-step-text{
+  font-size:12px;
+  line-height:1.55;
+  color:#55736b;
+  margin:4px 0 7px;
+  min-height:37px;
+}
+.tutorial-dots{
+  display:flex;
+  gap:4px;
+  align-items:center;
+  justify-content:center;
+}
+.tutorial-dot{
+  width:29px;
+  height:19px;
+  padding:6px;
+  appearance:none;
+  border:0;
+  background:transparent;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+}
+.tutorial-dot:before{
+  content:"";
+  display:block;
+  width:7px;
+  height:7px;
+  border-radius:99px;
+  background:#bdd2c6;
+  transition:background .25s,width .25s;
+}
+.tutorial-dot.is-active:before{width:20px;background:#238776}
+.tutorial-visual[data-tutorial-step="1"] .illus-heart{color:#df9890}
+.tutorial-visual[data-tutorial-step="2"] .illus-heart{color:#d77b83}
+.tutorial-visual.is-paused .tutorial-art *,
+.tutorial-visual.is-paused .tutorial-art{animation-play-state:paused!important}
+@keyframes tutorial-float{
+  0%,100%{transform:rotate(-8deg) translateY(4px)}
+  50%{transform:rotate(-5deg) translateY(-5px)}
+}
+@keyframes tutorial-twinkle{
+  0%,100%{transform:scale(1);opacity:.85}
+  50%{transform:scale(1.13);opacity:1}
+}
+@keyframes tutorial-bubble{
+  0%,100%{opacity:1}
+  50%{opacity:.72}
+}
+@media(max-width:970px){
+  .hero-illustration.tutorial-visual{flex-basis:252px;width:252px}
+}
+@media(max-width:630px){
+  .hero{flex-direction:column;gap:10px;align-items:stretch}
+  .hero-illustration.tutorial-visual{
+    display:flex;
+    width:100%;
+    max-width:300px;
+    flex:0 0 auto;
+    align-self:center;
+    margin:5px auto 0;
+  }
+  .tutorial-art{height:175px}
+  .tutorial-art .illus-card{width:132px;height:156px}
+  .tutorial-art .illus-heart{width:92px;height:92px;font-size:63px}
+  .tutorial-art .illus-bubble.a{top:24px;right:0}
+  .tutorial-art .illus-bubble.b{bottom:18px;left:0}
+  .tutorial-caption{min-height:0}
+}
+@media(prefers-reduced-motion:reduce){
+  .tutorial-art *,
+  .tutorial-art{animation:none!important;transition:none!important}
+  .tutorial-dot:before{transition:none!important}
+}
