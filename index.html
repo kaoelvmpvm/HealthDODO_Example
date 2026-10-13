@@ -28,10 +28,25 @@
             <span>✓ 無須登入</span><span>✓ 一鍵複製</span><span>✓ 直達健多多</span>
           </div>
         </div>
-        <div class="hero-illustration" aria-hidden="true">
-          <div class="illus-star one">✦</div><div class="illus-star two">✳</div>
-          <div class="illus-card"><span class="illus-heart">♥</span><div class="illus-lines"><i></i><i></i><i></i></div></div>
-          <span class="illus-bubble a">健康促進</span><span class="illus-bubble b">共創共學</span>
+        <div class="hero-illustration tutorial-visual" id="tutorial-visual" data-tutorial-step="0" aria-label="網站操作教學">
+          <div class="tutorial-art" aria-hidden="true">
+            <div class="illus-star one">✦</div><div class="illus-star two">✳</div>
+            <div class="illus-card"><span class="illus-heart">♥</span><div class="illus-lines"><i></i><i></i><i></i></div></div>
+            <span class="illus-bubble a">健康促進</span><span class="illus-bubble b">共創共學</span>
+          </div>
+          <div class="tutorial-caption">
+            <div class="tutorial-caption-head">
+              <span class="tutorial-kicker">3 步驟操作教學</span>
+              <button class="tutorial-toggle" id="tutorial-toggle" type="button" aria-label="暫停教學動畫">❚❚ 暫停</button>
+            </div>
+            <strong id="tutorial-step-title" class="tutorial-step-title">第一步｜選擇健康議題</strong>
+            <p id="tutorial-step-text" class="tutorial-step-text">從七大健康促進議題中，選擇你要練習的主題。</p>
+            <div class="tutorial-dots" role="group" aria-label="切換教學步驟">
+              <button type="button" class="tutorial-dot is-active" data-tutorial-go="0" aria-label="第一步：選擇健康議題" aria-current="step"></button>
+              <button type="button" class="tutorial-dot" data-tutorial-go="1" aria-label="第二步：選擇示範資料"></button>
+              <button type="button" class="tutorial-dot" data-tutorial-go="2" aria-label="第三步：複製並前往健多多"></button>
+            </div>
+          </div>
         </div>
       </section>
 
