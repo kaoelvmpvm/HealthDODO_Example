@@ -227,4 +227,78 @@
   $("copy-button").addEventListener("click", copyText);
   $("download-button").addEventListener("click", downloadText);
   render();
+
+  // 動畫教學與案例資料各自運作，避免干擾議題切換及一鍵複製功能。
+  function initTutorial() {
+    const visual = $("tutorial-visual");
+    const title = $("tutorial-step-title");
+    const description = $("tutorial-step-text");
+    const toggle = $("tutorial-toggle");
+    const dots = [...document.querySelectorAll("[data-tutorial-go]")];
+    if (!visual || !title || !description || !toggle || dots.length !== 3) return;
+
+    const steps = [
+      { title: "第一步｜選擇健康議題", description: "從七大健康促進議題中，選擇你要練習的主題。" },
+      { title: "第二步｜選擇示範資料", description: "實作區使用虛擬校情；精進區使用虛擬成果。" },
+      { title: "第三步｜複製並開啟健多多", description: "一鍵複製資料，再到對應的健多多機器人貼上。" }
+    ];
+    const reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    let index = 0;
+    let paused = Boolean(reduceMotion);
+    let timer = null;
+
+    function setStep(next) {
+      index = (next + steps.length) % steps.length;
+      title.textContent = steps[index].title;
+      description.textContent = steps[index].description;
+      visual.dataset.tutorialStep = String(index);
+      dots.forEach((dot, i) => {
+        const active = i === index;
+        dot.classList.toggle("is-active", active);
+        if (active) dot.setAttribute("aria-current", "step");
+        else dot.removeAttribute("aria-current");
+      });
+    }
+
+    function syncToggle() {
+      toggle.textContent = paused ? "▶ 播放" : "❚❚ 暫停";
+      toggle.setAttribute("aria-label", paused ? "播放教學動畫" : "暫停教學動畫");
+      visual.classList.toggle("is-paused", paused);
+    }
+
+    function stopTimer() {
+      if (timer !== null) {
+        window.clearInterval(timer);
+        timer = null;
+      }
+    }
+
+    function startTimer() {
+      stopTimer();
+      if (paused || document.hidden) return;
+      timer = window.setInterval(() => setStep(index + 1), 3700);
+    }
+
+    toggle.addEventListener("click", () => {
+      paused = !paused;
+      syncToggle();
+      startTimer();
+    });
+
+    dots.forEach((dot, i) => dot.addEventListener("click", () => {
+      setStep(i);
+      startTimer();
+    }));
+
+    document.addEventListener("visibilitychange", () => {
+      if (document.hidden) stopTimer();
+      else startTimer();
+    });
+
+    setStep(0);
+    syncToggle();
+    startTimer();
+  }
+
+  initTutorial();
 })();
